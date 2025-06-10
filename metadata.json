@@ -1,0 +1,6 @@
+{
+  "name": "SQL Practice Pad",
+  "description": "An interactive web application to practice SQL queries. Users can choose difficulty levels, generate SQL problems, submit solutions, and earn points. Includes a daily limit for free problem generation.",
+  "requestFramePermissions": [],
+  "prompt": ""
+}
