@@ -225,16 +225,7 @@ const App: React.FC = () => {
     }
   }
 
-
-  // Main application content (rendered if authenticated)
-  if (!apiKeyAvailable && !problemError?.includes(t('apiKeyErrorTitle').substring(0,10))) {
-     return (
-        <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-900 p-4">
-            <p className="text-slate-700 dark:text-slate-300">{t('checkingApiKey')}</p>
-        </div>
-     );
-  }
-  
+  // If authenticated, check for API Key. This is the primary gate after authentication.
   if (!apiKeyAvailable) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center bg-red-50 dark:bg-red-900/50 p-6 text-center">
@@ -246,7 +237,7 @@ const App: React.FC = () => {
     );
   }
   
-  // User Data loading spinner AFTER auth is resolved and user is present
+  // User Data loading spinner AFTER auth is resolved and API key is confirmed available
   if (isUserDataLoading && currentUser) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-100 dark:bg-slate-900 p-4">
@@ -313,7 +304,8 @@ const App: React.FC = () => {
             </p>
         </div>
         
-        {problemError && !feedback && (
+        {problemError && !feedback && !problemError.includes(t('apiKeyErrorTitle').substring(0,10)) && (
+          // Only show general problem errors here; API key error is handled by the full-screen display
           <FeedbackMessage feedback={{type: 'error', message: problemError}} />
         )}
 
